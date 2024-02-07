@@ -22,7 +22,7 @@ class HomeController extends AbstractController
         $serie = new Serie();
         $serie->setName('Friends');
         $serie->setOverview('Une bande de copains vivent à New York. Que d\'aventures ...');
-        $serie->setFirstAirDate(new \DateTime('1994-09-22'));
+        $serie->setFirstAirDate(new \DateTime('1997-03-22'));
         $serie->setLastAirDate(new \DateTime('2004-05-06'));
         $serie->setDateCreated(new \DateTime());
         $serie->setVote(7.5);
