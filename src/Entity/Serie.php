@@ -23,7 +23,6 @@ class Serie
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $status = null;
 
-
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0', nullable: true)]
     private ?string $popularity = null;
 
@@ -34,10 +33,10 @@ class Serie
     private ?float $vote = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $first_air_date = null;
+    private ?\DateTimeInterface $firstAirDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $last_air_date = null;
+    private ?\DateTimeInterface $lastAirDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $backdrop = null;
@@ -46,13 +45,13 @@ class Serie
     private ?string $poster = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $tmdb_id = null;
+    private ?int $tmdbId = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_created = null;
+    private ?\DateTimeInterface $dateCreated = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $date_modified = null;
+    private ?\DateTimeInterface $dateModified = null;
 
     public function getId(): ?int
     {
@@ -133,24 +132,24 @@ class Serie
 
     public function getFirstAirDate(): ?\DateTimeInterface
     {
-        return $this->first_air_date;
+        return $this->firstAirDate;
     }
 
-    public function setFirstAirDate(\DateTimeInterface $first_air_date): static
+    public function setFirstAirDate(\DateTimeInterface $firstAirDate): static
     {
-        $this->first_air_date = $first_air_date;
+        $this->firstAirDate = $firstAirDate;
 
         return $this;
     }
 
     public function getLastAirDate(): ?\DateTimeInterface
     {
-        return $this->last_air_date;
+        return $this->lastAirDate;
     }
 
-    public function setLastAirDate(?\DateTimeInterface $last_air_date): static
+    public function setLastAirDate(?\DateTimeInterface $lastAirDate): static
     {
-        $this->last_air_date = $last_air_date;
+        $this->lastAirDate = $lastAirDate;
 
         return $this;
     }
@@ -181,36 +180,36 @@ class Serie
 
     public function getTmdbId(): ?int
     {
-        return $this->tmdb_id;
+        return $this->tmdbId;
     }
 
-    public function setTmdbId(?int $tmdb_id): static
+    public function setTmdbId(?int $tmdbId): static
     {
-        $this->tmdb_id = $tmdb_id;
+        $this->tmdbId = $tmdbId;
 
         return $this;
     }
 
     public function getDateCreated(): ?\DateTimeInterface
     {
-        return $this->date_created;
+       return $this->dateCreated;
     }
 
-    public function setDateCreated(\DateTimeInterface $date_created): static
+    public function setDateCreated(\DateTimeInterface $dateCreated): static
     {
-        $this->date_created = $date_created;
+        $this->dateCreated = $dateCreated;
 
         return $this;
     }
 
     public function getDateModified(): ?\DateTimeInterface
     {
-        return $this->date_modified;
+        return $this->dateModified;
     }
 
-    public function setDateModified(?\DateTimeInterface $date_modified): static
+    public function setDateModified(?\DateTimeInterface $dateModified): static
     {
-        $this->date_modified = $date_modified;
+        $this->dateModified = $dateModified;
 
         return $this;
     }
