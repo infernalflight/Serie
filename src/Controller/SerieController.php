@@ -2,17 +2,53 @@
 
 namespace App\Controller;
 
+use App\Repository\SerieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/series', name: 'app_series')]
 class SerieController extends AbstractController
 {
-    #[Route('/serie', name: 'app_serie')]
-    public function index(): Response
+    #[Route('/list', name: '_list')]
+    public function list(SerieRepository $serieRepository): Response
     {
-        return $this->render('serie/index.html.twig', [
-            'controller_name' => 'SerieController',
+        $series = $serieRepository->findAll();
+
+        return $this->render('serie/list.html.twig', [
+            'series' => $series
         ]);
     }
+
+    #[Route('/detail/{id}', name: '_detail', requirements: ['id' => '\d+'])]
+    public function detail(int $id, SerieRepository $serieRepository): Response
+    {
+        $serie = $serieRepository->find($id);
+
+        return $this->render('serie/detail.html.twig', [
+            'serie' => $serie
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

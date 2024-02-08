@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Serie detail{% endblock %}
+
+{% block body %}
+    <h2>Detail d'une Série</h2>
+
+    <ul>
+        <li>Nom: {{ serie.name }}</li>
+        <li>Overview: {{ serie.overview }}</li>
+    </ul>
+{% endblock %}
