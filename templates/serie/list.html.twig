@@ -28,7 +28,11 @@
                 <td>{{ serie.lastAirDate|date('d/m/Y') }}</td>
                 <td><a href="{{ path('app_series_detail', {'id': serie.id}) }}">
                         <i class="bi bi-eye"></i>
-                    </a></td>
+                    </a>&nbsp;
+                    <a href="{{ path('app_series_delete', {'id': serie.id}) }}">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
