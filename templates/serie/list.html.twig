@@ -1,40 +1,8 @@
 {%  extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>Liste de séries</h2>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Overview</th>
-                <th>Genres</th>
-                <th>Status</th>
-                <th>Votes</th>
-                <th>First air date</th>
-                <th>Last air date</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
         {% for serie in series %}
-            <tr>
-                <td>{{ serie.name }}</td>
-                <td>{{ serie.overview }}</td>
-                <td>{{ serie.genres }}</td>
-                <td>{{ serie.status }}</td>
-                <td>{{ serie.vote }}</td>
-                <td>{{ serie.firstAirDate|date('d/m/Y') }}</td>
-                <td>{{ serie.lastAirDate|date('d/m/Y') }}</td>
-                <td><a href="{{ path('app_series_detail', {'id': serie.id}) }}">
-                        <i class="bi bi-eye"></i>
-                    </a>&nbsp;
-                    <a href="{{ path('app_series_delete', {'id': serie.id}) }}">
-                        <i class="bi bi-trash"></i>
-                    </a>
-                </td>
-            </tr>
+            <a href="{{ path('app_home', {'id' : 3 }) }}"><img src="{{ asset('assets/posters/series/' ~ serie.poster) }}" width="300px" loading="lazy" /></a>
         {% endfor %}
-        </tbody>
-    </table>
 {% endblock %}
