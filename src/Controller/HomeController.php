@@ -17,7 +17,7 @@ class HomeController extends AbstractController
         $series = $serieRepository->findAll();
 
         // Récupérer un tableau de Séries qui répond à plusieurs critères
-        //$series = $serieRepository->findBy(['status' => 'ended', 'genres' => 'SF'], ['first_air_date' => 'DESC'], 3, 3);
+        //$series = $serieRepository->findBy(['status' => 'ended', 'genres' => 'SF'], ['firstAirDate' => 'DESC'], 3, 3);
 
         // Récupérer un tableau de séries avec le QueryBuilder
         //$series = $serieRepository->findSerieBySophisticatedCriterias('canceled', 'ended');

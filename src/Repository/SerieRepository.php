@@ -32,7 +32,7 @@ class SerieRepository extends ServiceEntityRepository
             ->setParameter('status2', $status2)
         ;
 
-        $cond1 = $q->expr()->between('s.first_air_date', ':min', ':max');
+        $cond1 = $q->expr()->between('s.firstAirDate', ':min', ':max');
         $cond2 = $q->expr()->gte('s.vote', 5);
 
         $q->andWhere($cond1)
@@ -41,7 +41,7 @@ class SerieRepository extends ServiceEntityRepository
 
         $q->andWhere($cond2);
 
-        return $q->addOrderBy('s.first_air_date', 'DESC')
+        return $q->addOrderBy('s.firstAirDate', 'DESC')
 //            ->setMaxResults(4)
  //           ->setFirstResult(0)
             ->getQuery()
@@ -51,7 +51,7 @@ class SerieRepository extends ServiceEntityRepository
     public function getSeriesByDql(): array
     {
 
-        $dql = "SELECT s FROM App\Entity\Serie s WHERE s.vote > :vote1 AND s.vote < :vote2 AND s.name like '%g%' ORDER BY s.first_air_date DESC";
+        $dql = "SELECT s FROM App\Entity\Serie s WHERE s.vote > :vote1 AND s.vote < :vote2 AND s.name like '%g%' ORDER BY s.firstAirDate DESC";
 
         return $this->_em->createQuery($dql)
             ->setParameter('vote1', 5)
