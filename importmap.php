@@ -31,4 +31,8 @@ return [
         'version' => '5.3.2',
         'type' => 'css',
     ],
+    'bootstrap-icons/font/bootstrap-icons.min.css' => [
+        'version' => '1.11.3',
+        'type' => 'css',
+    ],
 ];

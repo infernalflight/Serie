@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Serie;
+use App\Repository\SerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,9 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(SerieRepository $serieRepository): Response
     {
-        return $this->render('home/index.html.twig');
+        $series = $serieRepository->findAll();
+
+        return $this->render('serie/list.html.twig', [
+            'series' => $series
+        ]);
     }
 
     #[Route('/demo', name: 'app_demo', methods: ['GET'])]
@@ -33,6 +38,5 @@ class HomeController extends AbstractController
         return new Response('Serie crée !');
 
     }
-
 
 }

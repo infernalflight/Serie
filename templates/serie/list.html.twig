@@ -3,7 +3,7 @@
 {% block body %}
     <h2>Liste de séries</h2>
 
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -17,18 +17,20 @@
             </tr>
         </thead>
         <tbody>
-    {% for serie in series %}
-        <tr>
-            <td>{{ serie.name }}</td>
-            <td>{{ serie.overview }}</td>
-            <td>{{ serie.genres }}</td>
-            <td>{{ serie.status }}</td>
-            <td>{{ serie.vote }}</td>
-            <td>{{ serie.firstAirDate|date('d/m/Y') }}</td>
-            <td>{{ serie.lastAirDate|date('d/m/Y') }}</td>
-            <td><a href="{{ path('app_series_detail', {'id': serie.id}) }}">Details</a></td>
-        </tr>
-    {% endfor %}
+        {% for serie in series %}
+            <tr>
+                <td>{{ serie.name }}</td>
+                <td>{{ serie.overview }}</td>
+                <td>{{ serie.genres }}</td>
+                <td>{{ serie.status }}</td>
+                <td>{{ serie.vote }}</td>
+                <td>{{ serie.firstAirDate|date('d/m/Y') }}</td>
+                <td>{{ serie.lastAirDate|date('d/m/Y') }}</td>
+                <td><a href="{{ path('app_series_detail', {'id': serie.id}) }}">
+                        <i class="bi bi-eye"></i>
+                    </a></td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}
