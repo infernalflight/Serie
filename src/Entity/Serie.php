@@ -48,8 +48,7 @@ class Serie
     #[ORM\Column(nullable: true)]
     private ?int $tmdbId = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => new \DateTime()])]
-//    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateCreated = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
