@@ -24,9 +24,6 @@ class SerieController extends AbstractController
     #[Route('/create', name: '_create')]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
-
-       // dd($request);
-
         $serie = new Serie();
 
         $form = $this->createForm(SerieType::class, $serie);
@@ -49,14 +46,23 @@ class SerieController extends AbstractController
 
 
     #[Route('/update/{id}', name: '_update', requirements: ['id' => '\d+'])]
-    public function update(Serie $serie, EntityManagerInterface $em): Response
+    public function update(Serie $serie, Request $request, EntityManagerInterface $em): Response
     {
-        $serie->setName('Friends');
+        $form = $this->createForm(SerieType::class, $serie);
 
-        $em->persist($serie);
-        $em->flush();
+        $form->handleRequest($request);
 
-        return new Response ('C\'est updated !');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($serie);
+            $em->flush();
+
+            $this->addFlash('success', 'La série a été modifiée');
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('serie/edit.html.twig', [
+            'form' => $form
+        ]);
     }
 
     #[Route('/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]

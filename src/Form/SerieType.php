@@ -20,6 +20,7 @@ class SerieType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de la série',
+                'required' => false,
                 'attr' => [
                     'maxlength' => 255,
                     'class' => 'special-class',
@@ -29,11 +30,13 @@ class SerieType extends AbstractType
                 ]
             ])
             ->add('overview', TextareaType::class, [
+                'required' => false,
                 'row_attr' => [
                     'class' => 'input-group mb-3'
                 ]
             ])
             ->add('status', ChoiceType::class, [
+                'required' => false,
                 'choices' => [
                     'en cours' => 'returning',
                     'terminé' => 'ended',
@@ -44,14 +47,19 @@ class SerieType extends AbstractType
                 ]
             ])
             ->add('popularity', TextType::class, [
+                'required' => false,
                 'row_attr' => [
                     'class' => 'input-group mb-3'
                 ]
             ])
             ->add('genres')
             ->add('vote')
-            ->add('firstAirDate', DateType::class)
-            ->add('lastAirDate', DateType::class)
+            ->add('firstAirDate', DateType::class, [
+                'required' => false,
+            ])
+            ->add('lastAirDate', DateType::class, [
+                'required' => false,
+            ])
             ->add('backdrop')
             ->add('poster')
             ->add('tmdbId')

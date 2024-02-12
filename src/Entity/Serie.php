@@ -5,9 +5,12 @@ namespace App\Entity;
 use App\Repository\SerieRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SerieRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[UniqueEntity(fields: ['name'], message: 'Cette série et cette date existent déja en magasin', errorPath: 'name')]
 class Serie
 {
     #[ORM\Id]
@@ -16,15 +19,21 @@ class Serie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Remplis un nom stp!")]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(min: 3, minMessage: "La longueur doit etre au moins de {{ limit }} caractères")]
+    #[Assert\Length(max: 10, maxMessage: "La longueur doit etre moins de {{ limit }} caractères")]
+    #[Assert\NotBlank()]
     private ?string $overview = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Choice(choices: ['ended', 'returning', 'canceled'])]
     private ?string $status = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0', nullable: true)]
+    #[Assert\Range(notInRangeMessage: "La popoularité doit etre comprise entre {{ min }} et {{ max }} ", min: 0, max: 10)]
     private ?string $popularity = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -34,9 +43,11 @@ class Serie
     private ?float $vote = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\LessThan('today UTC')]
     private ?\DateTimeInterface $firstAirDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\GreaterThan(propertyPath: 'firstAirDate')]
     private ?\DateTimeInterface $lastAirDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
