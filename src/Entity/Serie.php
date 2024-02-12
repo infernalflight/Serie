@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SerieRepository;
+use App\Validator\SerieValidator;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -11,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: SerieRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['name'], message: 'Cette série et cette date existent déja en magasin', errorPath: 'name')]
+#[Assert\Callback([SerieValidator::class, 'validate'])]
 class Serie
 {
     #[ORM\Id]
@@ -33,7 +35,7 @@ class Serie
     private ?string $status = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0', nullable: true)]
-    #[Assert\Range(notInRangeMessage: "La popoularité doit etre comprise entre {{ min }} et {{ max }} ", min: 0, max: 10)]
+    #[Assert\Range(notInRangeMessage: "La popularité doit etre comprise entre {{ min }} et {{ max }} ", min: 0, max: 10)]
     private ?string $popularity = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -48,6 +50,7 @@ class Serie
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Assert\GreaterThan(propertyPath: 'firstAirDate')]
+    #[Assert\LessThan('today UTC')]
     private ?\DateTimeInterface $lastAirDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
