@@ -46,6 +46,7 @@ class Serie
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\LessThan('today UTC')]
+    #[Assert\NotNull]
     private ?\DateTimeInterface $firstAirDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
@@ -150,7 +151,7 @@ class Serie
         return $this->firstAirDate;
     }
 
-    public function setFirstAirDate(\DateTimeInterface $firstAirDate): static
+    public function setFirstAirDate(?\DateTimeInterface $firstAirDate): static
     {
         $this->firstAirDate = $firstAirDate;
 
