@@ -30,8 +30,7 @@ class HomeController extends AbstractController
 
 
         return $this->render('serie/list.html.twig', [
-            'series' => $series,
-            'poster_dir' => $this->getParameter('poster_dir'),
+            'series' => $series
         ]);
     }
 
