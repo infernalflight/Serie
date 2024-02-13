@@ -3,6 +3,6 @@
 {% block body %}
 
         {% for serie in series %}
-            <a href="{{ path('app_series_detail', {'id' : serie.id }) }}"><img src="{{ asset('assets/posters/series/' ~ serie.poster) }}" width="300px" loading="lazy" /></a>
+            <a href="{{ path('app_series_detail', {'id' : serie.id }) }}"><img src="{{ asset(poster_dir ~ '/' ~ serie.poster) }}" width="300px" loading="lazy" /></a>
         {% endfor %}
 {% endblock %}

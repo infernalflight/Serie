@@ -21,7 +21,8 @@ class Serie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Remplis un nom stp!")]
+    #[Assert\Length(min: 3, minMessage: "La longueur doit etre au moins de {{ limit }} caractères")]
+    #[Assert\Length(max: 10, maxMessage: "La longueur doit etre moins de {{ limit }} caractères")]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
