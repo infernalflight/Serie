@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Serie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Pagination\CountWalker;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -47,6 +49,26 @@ class SerieRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getAllSeriesWithSeasons(int $page) {
+
+        $offset = ($page -1) * 15;
+
+        $q = $this->createQueryBuilder('s')
+            ->addSelect('seasons')
+            ->leftJoin('s.seasons', 'seasons')
+            ->setFirstResult($offset)
+            ->setMaxResults(15)
+            ->getQuery()
+            ->setHint(CountWalker::HINT_DISTINCT, false)
+        ;
+
+        $paginator = new Paginator($q);
+        $paginator->setUseOutputWalkers(false);
+        return $paginator;
+
+    }
+
 
     public function getSeriesByDql(): array
     {

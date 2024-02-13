@@ -2,7 +2,25 @@
 
 {% block body %}
 
+    <section>
+        <div class="flex_between">
+            {% if currentPage > 1 %}
+                <a href="{{ path('app_home', {'page': currentPage - 1}) }}">Previous page</a>
+            {% endif %}
+            {% if currentPage < maxPage %}
+                <div></div>
+                <a href="{{ path('app_home', {'page' : currentPage + 1}) }}">Next page</a>
+            {% endif%}
+        </div>
+    </section>
+
+    <section>
         {% for serie in series %}
-            <a href="{{ path('app_series_detail', {'id' : serie.id }) }}"><img src="{{ asset(poster_dir ~ '/' ~ serie.poster) }}" width="300px" loading="lazy" /></a>
+            <a href="{{ path('app_series_detail', {'id' : serie.id }) }}"><img src="{{ asset(poster_dir ~ '/' ~ serie.poster) }}" width="300px" loading="lazy" />
+                {% for season in serie.seasons %}
+                    {{ season.number }} |
+                {% endfor %}
+            </a>
         {% endfor %}
+    </section>
 {% endblock %}
