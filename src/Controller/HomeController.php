@@ -8,10 +8,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class HomeController extends AbstractController
 {
     #[Route('/{page}', name: 'app_home', requirements: ['page' => '\d+'], defaults: ['page' => 1])]
+    #[IsGranted('ROLE_USER')]
     public function index(?int $page, SerieRepository $serieRepository): Response
     {
         //$series = $serieRepository->findAll();

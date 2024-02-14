@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SerieRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-#[UniqueEntity(fields: ['name'], message: 'Cette série et cette date existent déja en magasin', errorPath: 'name')]
+#[UniqueEntity(fields: ['name'], message: 'Cette série existe déja en magasin', errorPath: 'name')]
 #[Assert\Callback([SerieValidator::class, 'validate'])]
 class Serie
 {

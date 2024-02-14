@@ -10,9 +10,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/series', name: 'app_series')]
+#[IsGranted('ROLE_USER')]
 class SerieController extends AbstractController
 {
     #[Route('/detail/{id}', name: '_detail', requirements: ['id' => '\d+'])]
@@ -24,6 +26,7 @@ class SerieController extends AbstractController
     }
 
     #[Route('/create', name: '_create')]
+    #[IsGranted('ROLE_CONTRIB')]
     public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $serie = new Serie();
@@ -56,6 +59,7 @@ class SerieController extends AbstractController
 
 
     #[Route('/update/{id}', name: '_update', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_CONTRIB')]
     public function update(Serie $serie, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(SerieType::class, $serie);
@@ -91,6 +95,7 @@ class SerieController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_CONTRIB')]
     public function delete(serie $serie, EntityManagerInterface $em): Response
     {
 
@@ -106,25 +111,4 @@ class SerieController extends AbstractController
 
         return $this->redirectToRoute('app_home');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
