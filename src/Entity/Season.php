@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\SeasonRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: SeasonRepository::class)]
+#[UniqueEntity(fields:['number', 'serie'], message: 'Ce numéro existe déja pour cette série', errorPath: 'number')]
 class Season
 {
     #[ORM\Id]
@@ -36,7 +38,7 @@ class Season
     private ?\DateTimeInterface $dateModified = null;
 
     #[ORM\ManyToOne(inversedBy: 'seasons')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Serie $serie = null;
 
     public function getId(): ?int

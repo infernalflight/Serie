@@ -94,6 +94,13 @@ class SerieController extends AbstractController
     public function delete(serie $serie, EntityManagerInterface $em): Response
     {
 
+        if (!empty($serie->getSeasons())) {
+            foreach($serie->getSeasons() as $season) {
+                $season->setSerie(null);
+                $em->persist($season);
+            }
+        }
+
         $em->remove($serie);
         $em->flush();
 
