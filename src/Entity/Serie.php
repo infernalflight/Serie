@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\SerieRepository;
 use App\Validator\SerieValidator;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,6 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['name'], message: 'Cette série existe déja en magasin', errorPath: 'name')]
 #[Assert\Callback([SerieValidator::class, 'validate'])]
+#[ApiResource()]
+#[ApiFilter(SearchFilter::class, properties: ['name' => 'partial'])]
 class Serie
 {
     #[ORM\Id]
@@ -72,7 +77,7 @@ class Serie
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateModified = null;
 
-    #[ORM\OneToMany(mappedBy: 'serie', targetEntity: Season::class, orphanRemoval: false)]
+    #[ORM\OneToMany(mappedBy: 'serie', targetEntity: Season::class, orphanRemoval: true)]
     private Collection $seasons;
 
     public function __construct()
