@@ -2,13 +2,14 @@
 
 namespace App\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ChangePasswordType
+class ChangePasswordType extends FormType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
