@@ -57,4 +57,12 @@ class HomeController extends AbstractController
 
     }
 
+    public function nouvelleMethode(): String {
+
+        return 'ceci est ma feature';
+
+    }
+
+
+
 }
