@@ -10,4 +10,4 @@ import 'bootstrap-icons/font/bootstrap-icons.min.css';
 
 import './styles/style.css';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+import Modal from 'bootstrap';

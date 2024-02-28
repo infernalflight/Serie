@@ -82,7 +82,6 @@ class SerieType extends AbstractType
                 ]
             ])
             ->add('tmdbId')
-            ->add('submit', SubmitType::class)
         ;
     }
 

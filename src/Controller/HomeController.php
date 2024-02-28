@@ -54,7 +54,6 @@ class HomeController extends AbstractController
         $em->flush();
 
         return new Response('Serie crée !');
-
     }
 
     public function nouvelleMethode(): String {
@@ -63,12 +62,9 @@ class HomeController extends AbstractController
 
     }
 
-
-
     #[Route('/maps', name: 'app_maps')]
     public function testMap(): Response
     {
         return $this->render('map/map.html.twig');
     }
-
 }

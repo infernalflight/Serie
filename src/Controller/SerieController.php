@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[Route('/series', name: 'app_series')]
 #[IsGranted('ROLE_USER')]
@@ -27,7 +28,7 @@ class SerieController extends AbstractController
 
     #[Route('/create', name: '_create')]
     #[IsGranted('ROLE_CONTRIB')]
-    public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HttpClientInterface $httpClient): Response
     {
         $serie = new Serie();
 
@@ -56,7 +57,39 @@ class SerieController extends AbstractController
         ]);
     }
 
+    #[Route('/create_ajax', name: '_create_ajax')]
+    #[IsGranted('ROLE_CONTRIB')]
+    public function createAjax(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    {
+        $serie = new Serie();
 
+        $form = $this->createForm(SerieType::class, $serie);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('poster_file')->getData() instanceof UploadedFile) {
+                $posterFile = $form->get('poster_file')->getData();
+                $fileName = $slugger->slug($serie->getName()) . '-' . uniqid() . '.' . $posterFile->guessExtension();
+                $posterFile->move($this->getParameter('poster_dir'), $fileName);
+                $serie->setPoster($fileName);
+            }
+
+            $em->persist($serie);
+            $em->flush();
+
+            $this->addFlash('success', 'La série a été enregistrée');
+
+            return new Response(json_encode([
+                'id' => $serie->getId(),
+                'name' => $serie->getName(),
+            ]), Response::HTTP_OK);
+        }
+
+        return $this->render('serie/edit_ajax.html.twig', [
+            'form' => $form
+        ]);
+    }
 
     #[Route('/update/{id}', name: '_update', requirements: ['id' => '\d+'])]
     #[IsGranted('ROLE_CONTRIB')]
