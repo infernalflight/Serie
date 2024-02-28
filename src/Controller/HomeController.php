@@ -65,4 +65,10 @@ class HomeController extends AbstractController
 
 
 
+    #[Route('/maps', name: 'app_maps')]
+    public function testMap(): Response
+    {
+        return $this->render('map/map.html.twig');
+    }
+
 }
