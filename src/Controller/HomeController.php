@@ -44,6 +44,13 @@ class HomeController extends AbstractController
 
         // je m'amuse à coder des trucs
 
+        foreach($series as $serie) {
+
+            // code
+
+        }
+
+
         return $this->render('serie/list.html.twig', [
             'series' => $series,
             'currentPage' => $page,
