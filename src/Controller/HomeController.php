@@ -51,6 +51,10 @@ class HomeController extends AbstractController
 
         // du code, du code....
 
+        // du code encore et encore
+
+
+
 
         return $this->render('serie/list.html.twig', [
             'series' => $series,
