@@ -51,6 +51,14 @@ class HomeController extends AbstractController
         }
 
 
+        $j = 10;
+
+        $j += 5;
+        $j = $i * $j;
+
+        // du code, du code....
+
+
         return $this->render('serie/list.html.twig', [
             'series' => $series,
             'currentPage' => $page,
