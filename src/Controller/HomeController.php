@@ -33,6 +33,11 @@ class HomeController extends AbstractController
 
         $maxPage = ceil($serieRepository->count([]) / 15 ) ;
 
+
+        $i = 5;
+
+
+
         return $this->render('serie/list.html.twig', [
             'series' => $series,
             'currentPage' => $page,
