@@ -39,6 +39,10 @@ class HomeController extends AbstractController
 
         $i += 8;
 
+        $i += 3;
+
+
+        // je m'amuse à coder des trucs
 
         return $this->render('serie/list.html.twig', [
             'series' => $series,
